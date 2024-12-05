@@ -1,0 +1,24 @@
+name: arm64
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.1
+
+      - name: CMake build
+        run: ./ssc examples/1_without_shebang/test.sh binary
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssc
+          path: |
+            build
+          retention-days: 30
